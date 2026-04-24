@@ -2,13 +2,28 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Brain, Shield, Database, Hand, Bot, Briefcase } from "lucide-react";
+import { ReactNode } from "react";
 
-const projects = [
+interface Project {
+  id: number;
+  title: string;
+  period: string;
+  iconName: string;
+  iconColor: string;
+  borderColor: string;
+  glowColor: string;
+  description: string;
+  tech: string[];
+  github: string;
+  live: string;
+}
+
+const projects: Project[] = [
   {
     id: 1,
     title: "Local-First AI Agent (Hybrid RAG)",
     period: "2025 – Present",
-    icon: <Brain size={22} />,
+    iconName: "brain",
     iconColor: "text-purple-400",
     borderColor: "hover:border-purple-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]",
@@ -22,7 +37,7 @@ const projects = [
     id: 2,
     title: "Emotion Detection with TTS Feedback",
     period: "Jul – Oct 2025",
-    icon: <Shield size={22} />,
+    iconName: "shield",
     iconColor: "text-cyan-400",
     borderColor: "hover:border-cyan-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]",
@@ -36,7 +51,7 @@ const projects = [
     id: 3,
     title: "College ERP System",
     period: "2025 – Present",
-    icon: <Database size={22} />,
+    iconName: "database",
     iconColor: "text-green-400",
     borderColor: "hover:border-green-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(34,197,94,0.15)]",
@@ -50,7 +65,7 @@ const projects = [
     id: 4,
     title: "Virtual Hand Mouse",
     period: "2024",
-    icon: <Hand size={22} />,
+    iconName: "hand",
     iconColor: "text-orange-400",
     borderColor: "hover:border-orange-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(249,115,22,0.15)]",
@@ -64,7 +79,7 @@ const projects = [
     id: 5,
     title: "AI Career Buddy",
     period: "2025",
-    icon: <Briefcase size={22} />,
+    iconName: "briefcase",
     iconColor: "text-yellow-400",
     borderColor: "hover:border-yellow-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(234,179,8,0.15)]",
@@ -78,7 +93,7 @@ const projects = [
     id: 6,
     title: "WhatsApp Automation Bot",
     period: "2025",
-    icon: <Bot size={22} />,
+    iconName: "bot",
     iconColor: "text-pink-400",
     borderColor: "hover:border-pink-500/50",
     glowColor: "hover:shadow-[0_0_30px_rgba(236,72,153,0.15)]",
@@ -89,6 +104,19 @@ const projects = [
     live: "#",
   },
 ];
+
+function getIcon(name: string): ReactNode {
+  const size = 22;
+  switch (name) {
+    case "brain": return <Brain size={size} />;
+    case "shield": return <Shield size={size} />;
+    case "database": return <Database size={size} />;
+    case "hand": return <Hand size={size} />;
+    case "briefcase": return <Briefcase size={size} />;
+    case "bot": return <Bot size={size} />;
+    default: return <Brain size={size} />;
+  }
+}
 
 export default function Projects() {
   return (
@@ -114,7 +142,7 @@ export default function Projects() {
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <span className={`${project.iconColor} p-2 rounded-lg bg-white/5`}>
-                {project.icon}
+                {getIcon(project.iconName)}
               </span>
               <span className="text-xs font-mono text-gray-500 bg-white/5 px-2 py-1 rounded-full">
                 {project.period}

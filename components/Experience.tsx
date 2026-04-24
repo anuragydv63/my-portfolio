@@ -3,10 +3,20 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Briefcase } from "lucide-react";
 
-const timelineData = [
+interface TimelineItem {
+  type: string;
+  iconName: string;
+  color: string;
+  period: string;
+  org: string;
+  title: string;
+  points: string[];
+}
+
+const timelineData: TimelineItem[] = [
   {
     type: "internship",
-    icon: <Briefcase size={16} />,
+    iconName: "briefcase",
     color: "cyan",
     period: "Jun – Jul 2025",
     org: "NIELIT | Ropar, Punjab",
@@ -19,7 +29,7 @@ const timelineData = [
   },
   {
     type: "education",
-    icon: <GraduationCap size={16} />,
+    iconName: "graduation",
     color: "purple",
     period: "2023 – 2027",
     org: "Himalayan Group of Professional Institution, Kala Amb (HPTU)",
@@ -78,9 +88,7 @@ export default function Experience() {
                 }`}
               >
                 {/* Timeline Dot */}
-                <div
-                  className={`absolute left-[-9px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full ${c.dot} z-10 flex items-center justify-center`}
-                />
+                <div className={`absolute left-[-9px] md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full ${c.dot} z-10`} />
 
                 {/* Card */}
                 <div
@@ -91,7 +99,11 @@ export default function Experience() {
                   {/* Period + Type */}
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
                     <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-mono font-bold rounded-full border ${c.badge}`}>
-                      {item.icon} {item.type === "internship" ? "INTERNSHIP" : "EDUCATION"}
+                      {item.iconName === "briefcase"
+                        ? <Briefcase size={12} />
+                        : <GraduationCap size={12} />
+                      }
+                      {item.type === "internship" ? "INTERNSHIP" : "EDUCATION"}
                     </span>
                     <span className="text-xs text-gray-500 font-mono">{item.period}</span>
                   </div>
