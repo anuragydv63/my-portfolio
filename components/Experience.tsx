@@ -66,7 +66,7 @@ export default function Experience() {
           Education
         </span>
       </h2>
-      <p className="text-gray-500 text-center mb-16 font-mono text-sm">// my journey so far</p>
+      <p className="text-gray-500 text-center mb-16 font-mono text-sm">my journey so far_</p>
 
       <div className="relative">
         {/* Center timeline line */}

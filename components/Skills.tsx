@@ -55,7 +55,7 @@ export default function Skills() {
           Skills
         </span>
       </h2>
-      <p className="text-gray-500 text-center mb-16 font-mono text-sm">// my tech arsenal</p>
+      <p className="text-gray-500 text-center mb-16 font-mono text-sm">my tech arsenal_</p>
 
       <div className="flex flex-col gap-10">
         {skillCategories.map((category, catIdx) => (
