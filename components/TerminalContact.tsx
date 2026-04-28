@@ -7,22 +7,49 @@ export default function TerminalContact() {
   const [inputVal, setInputVal] = useState("");
   const [messages, setMessages] = useState<{sender: string, text: string}[]>([
     { sender: "system", text: "CONNECTION ESTABLISHED." },
-    { sender: "system", text: "Ready to receive transmission. Type your message and hit Enter." }
+    { sender: "system", text: "Please enter your name to begin:" }
   ]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [step, setStep] = useState<"NAME" | "EMAIL" | "MESSAGE">("NAME");
+  const [userData, setUserData] = useState({ name: "", email: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputVal.trim() || isSubmitting) return;
 
-    setIsSubmitting(true);
+    const userInput = inputVal.trim();
     // Add user message
-    const newMessages = [...messages, { sender: "user", text: inputVal }];
+    const newMessages = [...messages, { sender: "user", text: userInput }];
     setMessages(newMessages);
-    
-    const messageToSend = inputVal;
     setInputVal("");
+
+    if (step === "NAME") {
+      setUserData(prev => ({ ...prev, name: userInput }));
+      setStep("EMAIL");
+      setTimeout(() => {
+        setMessages(prev => [...prev, { sender: "system", text: `Welcome, ${userInput}. Please enter your email address:` }]);
+      }, 300);
+      return;
+    }
+
+    if (step === "EMAIL") {
+      // Basic email validation
+      if (!userInput.includes('@') || !userInput.includes('.')) {
+        setTimeout(() => {
+          setMessages(prev => [...prev, { sender: "system", text: "INVALID FORMAT. Please enter a valid email address:" }]);
+        }, 300);
+        return;
+      }
+      setUserData(prev => ({ ...prev, email: userInput }));
+      setStep("MESSAGE");
+      setTimeout(() => {
+        setMessages(prev => [...prev, { sender: "system", text: "Identity verified. Type your message and hit Enter to transmit." }]);
+      }, 300);
+      return;
+    }
+
+    setIsSubmitting(true);
 
     setMessages(prev => [...prev, { 
       sender: "system", 
@@ -38,9 +65,10 @@ export default function TerminalContact() {
         },
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
-          name: "Terminal Portfolio Visitor",
-          message: messageToSend,
-          subject: "New Message from Terminal Portfolio",
+          name: userData.name,
+          email: userData.email,
+          message: userInput,
+          subject: `New Message from ${userData.name} (Terminal Portfolio)`,
         }),
       });
 
@@ -50,6 +78,9 @@ export default function TerminalContact() {
           sender: "system", 
           text: "TRANSMISSION SUCCESSFUL. Anurag has received your message." 
         }]);
+        // Reset form for new message
+        setStep("NAME");
+        setUserData({ name: "", email: "" });
       } else {
         setMessages(prev => [...prev, { 
           sender: "system", 
@@ -97,11 +128,12 @@ export default function TerminalContact() {
         <form onSubmit={handleSubmit} className="flex p-4 border-t border-white/10 bg-white/5">
           <span className="text-cyan-400 font-mono mr-2 pt-2">C:\&gt;</span>
           <input 
-            type="text" 
+            type={step === "EMAIL" ? "email" : "text"} 
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
-            placeholder="Type your message..."
-            className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-white/20"
+            placeholder={step === "NAME" ? "Type your name..." : step === "EMAIL" ? "Type your email..." : "Type your message..."}
+            className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder:text-white/20 min-w-0"
+            disabled={isSubmitting}
           />
           <button type="submit" className="text-cyan-400 hover:text-white transition-colors ml-4 pt-1">
             <Send size={18} />
