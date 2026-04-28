@@ -10,23 +10,60 @@ export default function TerminalContact() {
     { sender: "system", text: "Ready to receive transmission. Type your message and hit Enter." }
   ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputVal.trim()) return;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputVal.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
     // Add user message
     const newMessages = [...messages, { sender: "user", text: inputVal }];
+    setMessages(newMessages);
     
-    // Simulate system response
-    setTimeout(() => {
+    const messageToSend = inputVal;
+    setInputVal("");
+
+    setMessages(prev => [...prev, { 
+      sender: "system", 
+      text: "TRANSMITTING TO ANURAG..." 
+    }]);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          name: "Terminal Portfolio Visitor",
+          message: messageToSend,
+          subject: "New Message from Terminal Portfolio",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setMessages(prev => [...prev, { 
+          sender: "system", 
+          text: "TRANSMISSION SUCCESSFUL. Anurag has received your message." 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { 
+          sender: "system", 
+          text: "TRANSMISSION FAILED. Please check the API key or try the direct email below." 
+        }]);
+      }
+    } catch (error) {
       setMessages(prev => [...prev, { 
         sender: "system", 
-        text: "TRANSMISSION RECEIVED. I will process your message and respond shortly." 
+        text: "TRANSMISSION ERROR. Network failure." 
       }]);
-    }, 600);
-
-    setMessages(newMessages);
-    setInputVal("");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -73,7 +110,7 @@ export default function TerminalContact() {
       </div>
 
       <div className="mt-8 text-center text-gray-400 text-sm">
-        Or reach me directly at <a href="mailto:contact@anurag.com" className="text-cyan-400 hover:underline">contact@anurag.com</a>
+        Or reach me directly at <a href="mailto:anurayadav807780@gmail.com" className="text-cyan-400 hover:underline">anurayadav807780@gmail.com</a>
       </div>
     </section>
   );

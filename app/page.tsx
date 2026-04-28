@@ -4,11 +4,13 @@ import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import TerminalContact from "@/components/TerminalContact";
 import DownloadResume from "@/components/DownloadResume";
-import { Terminal } from "lucide-react";
+import { Terminal, Github, Linkedin, Mail, Phone } from "lucide-react";
+import ParticlesBackground from "@/components/ParticlesBackground";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#050505] relative overflow-x-hidden selection:bg-cyan-500/30">
+      <ParticlesBackground />
       {/* Background glowing effects */}
       <div className="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -69,14 +71,25 @@ export default function Home() {
           </div>
 
           {/* Contact quick links */}
-          <div className="flex gap-5 text-sm text-gray-500 font-mono mt-2">
-            <a href="mailto:anurayadav807780@gmail.com" className="hover:text-cyan-400 transition-colors">
-              📧 anurayadav807780@gmail.com
-            </a>
-            <span className="text-gray-700">|</span>
-            <a href="tel:+919536010156" className="hover:text-cyan-400 transition-colors">
-              📞 +91-9536010156
-            </a>
+          <div className="flex flex-col items-center gap-3 mt-4">
+            <div className="flex gap-5 text-sm text-gray-500 font-mono">
+              <a href="mailto:anurayadav807780@gmail.com" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
+                <Mail size={16} /> anurayadav807780@gmail.com
+              </a>
+              <span className="text-gray-700">|</span>
+              <a href="tel:+919536010156" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
+                <Phone size={16} /> +91-9536010156
+              </a>
+            </div>
+            <div className="flex gap-5 text-sm text-gray-500 font-mono mt-1">
+              <a href="https://github.com/anuragydv63" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
+                <Github size={16} /> GitHub
+              </a>
+              <span className="text-gray-700">|</span>
+              <a href="https://www.linkedin.com/in/anuragydv63/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
+                <Linkedin size={16} /> LinkedIn
+              </a>
+            </div>
           </div>
         </div>
       </main>
