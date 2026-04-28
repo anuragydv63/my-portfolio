@@ -16,11 +16,11 @@ export default function Home() {
       <div className="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-center backdrop-blur-sm border-b border-white/5">
-        <div className="font-mono text-cyan-400 font-bold text-xl flex items-center gap-2">
+      <nav className="fixed top-0 left-0 w-full p-4 md:p-6 z-50 flex flex-col sm:flex-row justify-between items-center backdrop-blur-sm border-b border-white/5 gap-3 sm:gap-0">
+        <div className="font-mono text-cyan-400 font-bold text-lg md:text-xl flex items-center gap-2">
           <Terminal size={24} /> ANURAG.SYS
         </div>
-        <div className="flex gap-4 md:gap-6 text-sm text-gray-400">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-6 text-xs md:text-sm text-gray-400">
           <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#skills" className="hover:text-white transition-colors">Skills</a>
           <a href="#experience" className="hover:text-white transition-colors">Experience</a>
@@ -71,17 +71,17 @@ export default function Home() {
           </div>
 
           {/* Contact quick links */}
-          <div className="flex flex-col items-center gap-3 mt-4">
-            <div className="flex gap-5 text-sm text-gray-500 font-mono">
-              <a href="mailto:anurayadav807780@gmail.com" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
-                <Mail size={16} /> anurayadav807780@gmail.com
+          <div className="flex flex-col items-center gap-3 mt-4 w-full">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5 text-sm text-gray-500 font-mono">
+              <a href="mailto:anurayadav807780@gmail.com" className="flex items-center gap-2 hover:text-cyan-400 transition-colors text-center sm:text-left">
+                <Mail size={16} /> <span className="break-all">anurayadav807780@gmail.com</span>
               </a>
-              <span className="text-gray-700">|</span>
+              <span className="hidden sm:inline text-gray-700">|</span>
               <a href="tel:+919536010156" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
                 <Phone size={16} /> +91-9536010156
               </a>
             </div>
-            <div className="flex gap-5 text-sm text-gray-500 font-mono mt-1">
+            <div className="flex flex-row items-center justify-center gap-5 text-sm text-gray-500 font-mono mt-1">
               <a href="https://github.com/anuragydv63" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-cyan-400 transition-colors">
                 <Github size={16} /> GitHub
               </a>
