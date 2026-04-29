@@ -170,19 +170,36 @@ export default function Projects() {
             </div>
 
             {/* Links */}
-            <div className="flex gap-4 mt-auto">
-              <a
-                href={project.github}
-                className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                <Github size={16} /> Code
-              </a>
-              <a
-                href={project.live}
-                className="flex items-center gap-2 text-sm text-gray-300 hover:text-cyan-400 transition-colors"
-              >
-                <ExternalLink size={16} /> Live Demo
-              </a>
+            <div className="flex gap-4 mt-auto pt-4 border-t border-white/10">
+              {project.github && project.github !== "#" ? (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                >
+                  <Github size={16} /> Code
+                </a>
+              ) : (
+                <span className="flex items-center gap-2 text-sm font-medium text-gray-600/80 cursor-not-allowed" title="Not available publicly">
+                  <Github size={16} /> Code (Private)
+                </span>
+              )}
+
+              {project.live && project.live !== "#" ? (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-cyan-400 transition-colors"
+                >
+                  <ExternalLink size={16} /> Live Demo
+                </a>
+              ) : (
+                <span className="flex items-center gap-2 text-sm font-medium text-gray-600/80 cursor-not-allowed" title="Coming soon">
+                  <ExternalLink size={16} /> Demo (Soon)
+                </span>
+              )}
             </div>
           </motion.div>
         ))}

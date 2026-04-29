@@ -5,12 +5,9 @@ import Experience from "@/components/Experience";
 import TerminalContact from "@/components/TerminalContact";
 import DownloadResume from "@/components/DownloadResume";
 import { Terminal, Github, Linkedin, Mail, Phone } from "lucide-react";
-import ParticlesBackground from "@/components/ParticlesBackground";
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#050505] relative overflow-x-hidden selection:bg-cyan-500/30">
-      <ParticlesBackground />
       {/* Background glowing effects */}
       <div className="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
